@@ -43,7 +43,7 @@ namespace UnityNetworkingSystemTCP
 
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-                sERVERsEND.Welcome(id, "Welcome to the Server!");
+                ServerSend.Welcome(id, "Welcome to the Server!");
             }
 
             public void SendData(Packet _packet)
@@ -57,7 +57,7 @@ namespace UnityNetworkingSystemTCP
                 }
                 catch (Exception _ex)
                 {
-                    Console.WriteLine($"Error sending data to player [id] via TCP: {_ex}");
+                    Console.WriteLine($"Error sending data to player {id} via TCP: {_ex}");
                 }
             }
 
