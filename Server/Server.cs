@@ -13,11 +13,15 @@ namespace UnityNetworkingSystemTCP
 
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
 
+        public delegate void PacketHandler(int _fromClient, Packet _packet);
+
+        public static Dictionary<int, PacketHandler> packetHandlers;
+
         private static TcpListener tcpListener;
 
         public static void Start (int _maxPlayers, int _port)
         {
-            InitializeServerData();
+            // 1 InitializeServerData();
             MaxPlayers = _maxPlayers;
             Port = _port;
 
@@ -27,14 +31,14 @@ namespace UnityNetworkingSystemTCP
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
-            Console.WriteLine($"Server started on {Port}. ");
+            Console.WriteLine($"Server started on port {Port}. ");
         }
 
         private static void TCPConnectCallback(IAsyncResult _result)
         {
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-            Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}.");
+            Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
@@ -53,6 +57,12 @@ namespace UnityNetworkingSystemTCP
             {
                 clients.Add(i, new Client(i));
             }
+
+            packetHandlers = new Dictionary<int, PacketHandler>()
+            {
+                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived }
+            };
+            Console.WriteLine("Initialized packets.");
         }
     }
 }

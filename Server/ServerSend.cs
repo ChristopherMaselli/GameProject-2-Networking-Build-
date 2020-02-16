@@ -12,7 +12,7 @@ namespace UnityNetworkingSystemTCP
             Server.clients[_toClient].tcp.SendData(_packet);
         }
 
-        private static void SendTCDDataToAll(Packet _packet)
+        private static void SendTCPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
             for (int i = 1; i <= Server.MaxPlayers; i++)
@@ -20,7 +20,7 @@ namespace UnityNetworkingSystemTCP
                 Server.clients[i].tcp.SendData(_packet);
             }
         }
-        private static void SendTCDDataToAll(int _exceptClient, Packet _packet)
+        private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
         {
             _packet.WriteLength();
             for (int i = 1; i <= Server.MaxPlayers; i++)
