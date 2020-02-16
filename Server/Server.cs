@@ -21,7 +21,6 @@ namespace UnityNetworkingSystemTCP
 
         public static void Start (int _maxPlayers, int _port)
         {
-            // 1 InitializeServerData();
             MaxPlayers = _maxPlayers;
             Port = _port;
 
@@ -39,6 +38,10 @@ namespace UnityNetworkingSystemTCP
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
             Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
+            if (!clients.ContainsKey(1))
+            {
+                InitializeServerData();
+            }
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
