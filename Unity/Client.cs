@@ -238,7 +238,7 @@ public class Client : MonoBehaviour
                     int _packetId = _packet.ReadInt();
                     packetHandlers[_packetId](_packet);
                 }
-            })
+            });
         }
     }
 
@@ -246,8 +246,8 @@ public class Client : MonoBehaviour
     {
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
-            { (int)ServerPackets.welcome, ClientHandle.Welcome }
-            { (int)ServerPackets.welcome, ClientHandle.UDPTest }
+            { (int)ServerPackets.welcome, ClientHandle.Welcome },
+            { (int)ServerPackets.udpTest, ClientHandle.UDPTest }
         };
         Debug.Log("Initialized Packets");
     }

@@ -137,7 +137,7 @@ namespace UnityNetworkingSystemTCP
         {
             public IPEndPoint endPoint;
 
-            public int id;
+            private int id;
 
             public UDP(int _id)
             {
@@ -167,7 +167,7 @@ namespace UnityNetworkingSystemTCP
                         int _packetId = _packet.ReadInt();
                         Server.packetHandlers[_packetId](id, _packet);
                     }
-                })
+                });
             }
 
         }

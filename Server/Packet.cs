@@ -15,7 +15,7 @@ namespace UnityNetworkingSystemTCP
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        udpTestReceive
+        udpTestReceived
     }
 
     public class Packet : IDisposable

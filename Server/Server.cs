@@ -26,6 +26,7 @@ namespace UnityNetworkingSystemTCP
             Port = _port;
 
             Console.WriteLine("Starting server...");
+            InitializeServerData();
 
             tcpListener = new TcpListener(IPAddress.Any, Port);
             tcpListener.Start();
@@ -42,10 +43,12 @@ namespace UnityNetworkingSystemTCP
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
             Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
+            /*
             if (!clients.ContainsKey(1))
             {
                 InitializeServerData();
             }
+            */
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
@@ -94,7 +97,7 @@ namespace UnityNetworkingSystemTCP
             }
             catch(Exception _ex)
             {
-                Console.WriteLine($"Error receiveing UDP data: {_ex}");
+                Console.WriteLine($"Error receiving UDP data: {_ex}");
             }
         }
 
@@ -123,7 +126,7 @@ namespace UnityNetworkingSystemTCP
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-                { (int)ClientPackets.welcomeReceived, ServerHandle.UDPTestReceived }
+                { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived }
             };
             Console.WriteLine("Initialized packets.");
         }
